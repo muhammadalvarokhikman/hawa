@@ -53,7 +53,7 @@ if data is not None and not data.empty:
 
     st.subheader("Prediksi 1 Jam Ke Depan")
     try:
-        pred_temp, pred_time, current_rmse = get_next_hour_forecast()
+        pred_temp, pred_time, current_rmse, last_train_time = get_next_hour_forecast()
         diff = round(pred_temp - current_temp, 2)
         
         p_col1, p_col2 = st.columns([1, 3])
@@ -64,7 +64,14 @@ if data is not None and not data.empty:
                 delta=f"{diff} °C"
             )
         with p_col2:
-            st.info(f"Model: XGBoost v1 | Current RMSE: {current_rmse}°C. Trained on 18,000+ records.")
+            st.info(f"Model: XGBoost v1.0 | Akurasi: RMSE {current_rmse}°C. Model ini mempelajari pola cuaca lokal Semarang untuk memberikan estimasi suhu jam berikutnya.")
+            
+        # Model Health di Sidebar
+        st.sidebar.markdown("---")
+        st.sidebar.subheader("🛠️ Model Health")
+        st.sidebar.write(f"**Current RMSE:** {current_rmse} °C")
+        st.sidebar.write(f"**Last Retrained:** {last_train_time}")
+            
     except Exception as e:
         st.warning(f"Inference error: {e}")
 
@@ -80,4 +87,4 @@ else:
     st.warning("No data available in the database.")
 
 st.sidebar.info(f"Location: {os.getenv('CITY_NAME', 'Semarang')}")
-st.sidebar.caption("By: Muhammad Alvaro Khikman")
+st.sidebar.caption("Project by: Muhammad Alvaro Khikman")

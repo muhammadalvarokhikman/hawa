@@ -30,15 +30,15 @@ def get_next_hour_forecast():
     
     artifacts = joblib.load('models/hawa_v1.pkl')
     
-    # Ekstraksi objek model dari dictionary
     if isinstance(artifacts, dict):
         model_obj = artifacts['model']
         rmse_val = artifacts.get('rmse', 0.59)
+        last_train = artifacts.get('updated_at', 'Manual Train')
     else:
         model_obj = artifacts
         rmse_val = 0.59
+        last_train = 'Legacy Model'
 
-    # Panggil predict pada objek model, bukan pada dictionary
     prediction = model_obj.predict(input_data)[0]
     
-    return round(float(prediction), 2), next_hour_time, rmse_val
+    return round(float(prediction), 2), next_hour_time, rmse_val, last_train
