@@ -2,6 +2,7 @@ import pandas as pd
 import xgboost as xgb
 from sklearn.metrics import root_mean_squared_error
 import joblib
+from datetime import datetime
 from src.feature_engineering import prepare_features
 
 def train_hawa_model():
@@ -36,14 +37,14 @@ def train_hawa_model():
     predictions = model.predict(X_test)
     rmse = root_mean_squared_error(y_test, predictions)
     
-    # Simpan sebagai dictionary
     model_artifacts = {
         'model': model,
-        'rmse': round(float(rmse), 4)
+        'rmse': round(float(rmse), 4),
+        'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M')
     }
     
     joblib.dump(model_artifacts, 'models/hawa_v1.pkl')
-    print(f"Model disimpan dengan RMSE: {rmse:.4f}")
+    print(f"Model disimpan dengan RMSE: {rmse:.4f} pada {model_artifacts['updated_at']}")
 
 if __name__ == "__main__":
     train_hawa_model()

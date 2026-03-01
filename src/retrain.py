@@ -2,6 +2,7 @@ import joblib
 import xgboost as xgb
 from sklearn.metrics import root_mean_squared_error
 from src.feature_engineering import prepare_features
+from datetime import datetime
 import os
 
 def retrain_process():
@@ -25,11 +26,12 @@ def retrain_process():
     
     model_artifacts = {
         'model': model,
-        'rmse': round(float(new_rmse), 4)
+        'rmse': round(float(new_rmse), 4),
+        'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M')
     }
 
     joblib.dump(model_artifacts, 'models/hawa_v1.pkl')
-    print(f"Retrain completed. New RMSE: {new_rmse:.4f}")
+    print(f"Retrain completed. New RMSE: {new_rmse:.4f} pada {model_artifacts['updated_at']}")
 
 if __name__ == "__main__":
     retrain_process()
