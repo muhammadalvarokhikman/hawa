@@ -1,7 +1,7 @@
 import joblib
 import xgboost as xgb
 from sklearn.metrics import root_mean_squared_error
-from feature_engineering import prepare_features
+from src.feature_engineering import prepare_features
 import os
 
 def retrain_process():

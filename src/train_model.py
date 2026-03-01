@@ -2,7 +2,7 @@ import pandas as pd
 import xgboost as xgb
 from sklearn.metrics import root_mean_squared_error
 import joblib
-from feature_engineering import prepare_features
+from src.feature_engineering import prepare_features
 
 def train_hawa_model():
     df = prepare_features()
