@@ -1,0 +1,19 @@
+# Data Manipulation & Stats
+pandas
+numpy
+statsmodels
+scikit-learn
+xgboost
+
+# API & Database
+requests
+sqlalchemy
+psycopg2-binary
+
+# Visualization
+matplotlib
+seaborn
+streamlit
+
+# Environment
+python-dotenv
