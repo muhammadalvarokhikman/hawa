@@ -3,9 +3,9 @@ import pandas as pd
 import psycopg2
 import os
 from dotenv import load_dotenv
-from src.predict import get_next_hour_forecast # Import fungsi prediksi kamu
 import sys
 sys.path.append(os.getcwd())
+from src.predict import get_next_hour_forecast
 
 # Load environment variables
 load_dotenv()
