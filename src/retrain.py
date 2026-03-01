@@ -5,7 +5,6 @@ from feature_engineering import prepare_features
 import os
 
 def retrain_process():
-    print("Memulai proses retraining harian...")
     df = prepare_features()
     
     features = ['hour', 'day_of_week', 'month', 'temp_lag_1', 'temp_lag_2', 'hum_lag_1', 'humidity', 'pressure', 'wind_speed']
@@ -30,7 +29,7 @@ def retrain_process():
     }
 
     joblib.dump(model_artifacts, 'models/hawa_v1.pkl')
-    print(f"Retrain selesai. RMSE Baru: {new_rmse:.4f}")
+    print(f"Retrain completed. New RMSE: {new_rmse:.4f}")
 
 if __name__ == "__main__":
     retrain_process()
