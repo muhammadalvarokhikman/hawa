@@ -1,0 +1,39 @@
+name: Weekly Model Retrain
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Berjalan setiap hari Minggu jam 00:00 UTC
+  workflow_dispatch: # Memungkinkan dijalankan manual jika perlu
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          
+      - name: Run Retrain Script
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+        run: python src/retrain.py
+        
+      - name: Commit and Push New Model
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add models/hawa_v1.pkl
+          git commit -m "Auto: Weekly model retraining [skip ci]" || echo "No changes to commit"
+          git push
