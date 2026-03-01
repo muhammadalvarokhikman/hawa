@@ -1,16 +1,21 @@
+# --- DATA SENSITIF & KREDENSIAL ---
 .env
-__pycache__/
-*.pyc
+.streamlit/secrets.toml
 
+# --- VIRTUAL ENVIRONMENT & PYTHON ---
 venv/
 .venv/
 __pycache__/
-.env
+*.py[cod]
+*$py.class
 
+# --- MACHINE LEARNING & NOTEBOOKS ---
+.ipynb_checkpoints/
+*.log
+# models/  <-- Jangan di-ignore dulu agar hawa_v1.pkl terkirim ke Streamlit Cloud
+
+# --- SYSTEM & EDITORS ---
 .vscode/
 .idea/
-
-.streamlit/secrets.toml
-
 .DS_Store
 Thumbs.db
