@@ -4,6 +4,7 @@ numpy
 statsmodels
 scikit-learn
 xgboost
+altair<5
 
 # API & Database
 requests
