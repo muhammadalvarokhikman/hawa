@@ -29,9 +29,13 @@ def get_next_hour_forecast():
     }])
     
     artifacts = joblib.load('models/hawa_v1.pkl')
-    model = artifacts['model']
-    rmse = artifacts['rmse']
     
+    if isinstance(artifacts, dict):
+        model = artifacts['model']
+        rmse = artifacts.get('rmse', 0.59)
+    else:
+        model = artifacts
+        rmse = 0.59
+
     prediction = model.predict(input_data)[0]
-    
     return round(float(prediction), 2), next_hour_time, rmse

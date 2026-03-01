@@ -1,16 +1,11 @@
 import joblib
-import pandas as pd
 import xgboost as xgb
-from sqlalchemy import create_engine
 from sklearn.metrics import root_mean_squared_error
 from feature_engineering import prepare_features
 import os
-from datetime import datetime
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def retrain_process():
+    print("Memulai proses retraining harian...")
     df = prepare_features()
     
     features = ['hour', 'day_of_week', 'month', 'temp_lag_1', 'temp_lag_2', 'hum_lag_1', 'humidity', 'pressure', 'wind_speed']
@@ -31,12 +26,11 @@ def retrain_process():
     
     model_artifacts = {
         'model': model,
-        'rmse': round(float(new_rmse), 4),
-        'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M')
+        'rmse': round(float(new_rmse), 4)
     }
 
     joblib.dump(model_artifacts, 'models/hawa_v1.pkl')
-    print(f"Retrain Success. RMSE: {new_rmse:.4f}")
+    print(f"Retrain selesai. RMSE Baru: {new_rmse:.4f}")
 
 if __name__ == "__main__":
     retrain_process()
